@@ -186,9 +186,15 @@ func MarshalSm2PublicKey(key *sm2.PublicKey) ([]byte, error) {
 }
 
 func ParseSm2PrivateKey(der []byte) (*sm2.PrivateKey, error) {
+	// var privKey sm2PrivateKey
+
+	// if _, err := asn1.Unmarshal(der, &privKey); err != nil {
+	// 	return nil, errors.New("x509: failed to parse SM2 private key: " + err.Error())
+	// }
+	var r pkcs8
 	var privKey sm2PrivateKey
 
-	if _, err := asn1.Unmarshal(der, &privKey); err != nil {
+	if _, err := asn1.Unmarshal(der, &r); err != nil {
 		return nil, errors.New("x509: failed to parse SM2 private key: " + err.Error())
 	}
 	curve := sm2.P256Sm2()
